@@ -5,30 +5,62 @@ Green Grid Simulation is a discrete-event simulation of a residential solar–ba
 
 This project models:
 
-Solar generation affected by cloud coverage
+- Solar generation affected by cloud coverage  
+- Battery storage with round-trip efficiency  
+- Grid import/export limits and pricing  
+- Inverter failures and downtime (MTTF-based model)  
+- Dynamic household load  
 
-Battery storage with efficiency losses
+The system acts as a **Digital Twin**, replicating the behavior of a real residential energy setup to evaluate performance, reliability, and economic impact.
 
-Grid import/export limits and pricing
+---
 
-Inverter failures and downtime
+## Energy Management Strategies
 
-Dynamic household load
+The simulation compares three strategies:
 
-The simulation compares different energy management strategies:
+- **LOAD_PRIORITY** – Solar → Load → Battery → Grid  
+- **CHARGE_PRIORITY** – Solar → Battery → Load → Grid  
+- **PRODUCE_PRIORITY** – Solar → Grid → Battery → Load  
 
-LOAD_PRIORITY
+---
 
-CHARGE_PRIORITY
+## Metrics Computed
 
-PRODUCE_PRIORITY
+- Total generation and consumption (kWh)  
+- Grid import/export (kWh)  
+- Curtailed energy  
+- Unmet load (total, events, percentage of time)  
+- Battery statistics (SoC, efficiency)  
+- Inverter failures and downtime  
+- Net economic cost  
 
-It computes technical and economic metrics such as total generation, grid import/export, unmet load frequency, battery state of charge, inverter reliability, and net cost.
+---
 
-The model also exports hourly CSV summaries and generates performance plots for analysis.
+## Outputs
 
-Requirements
+The simulation generates:
+
+- Time-series performance plots  
+- Hourly CSV summaries  
+- Global results summary CSV  
+
+---
+
+## Requirements
+
+Install dependencies:
+
+```bash
 pip install simpy pandas matplotlib
+```
 
-Run
+---
+
+## Run
+
+```bash
 python greengridsim.py
+```
+
+---
