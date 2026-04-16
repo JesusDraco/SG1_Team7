@@ -1,55 +1,141 @@
 # SG1_Team7
-Green grid simulation in python
 
-Green Grid Simulation is a discrete-event simulation of a residential solar–battery–grid energy system built with SimPy.
+## Green Grid Simulation + Interactive Dashboard
 
-This project models:
+---
 
-- Solar generation affected by cloud coverage  
-- Battery storage with round-trip efficiency  
-- Grid import/export limits and pricing  
-- Inverter failures and downtime (MTTF-based model)  
-- Dynamic household load  
+## Project Overview
 
-The system acts as a **Digital Twin**, replicating the behavior of a real residential energy setup to evaluate performance, reliability, and economic impact.
+Green Grid Simulation is a discrete-event simulation of a residential solar–battery–grid energy system built using **SimPy**.
+
+This second delivery extends the original simulation by adding an **interactive data dashboard**, enabling **data visualization, analysis, and storytelling** of the system’s behavior under different conditions.
+
+The project acts as a **Digital Twin**, replicating a real-world residential energy system to evaluate:
+
+* Energy efficiency
+* Grid dependence
+* Battery usage
+* Economic impact
+* System resilience
+
+---
+
+## System Model
+
+The simulation includes the following components:
+
+* **Solar generation** affected by cloud coverage and seasonality
+* **Battery storage** with round-trip efficiency
+* **Grid interaction** with import/export limits and pricing
+* **Inverter failures** using a probabilistic MTTF model
+* **Dynamic household load behavior**
+* **Weather system** influencing solar production
 
 ---
 
 ## Energy Management Strategies
 
-The simulation compares three strategies:
+The system evaluates three strategies:
 
-- **LOAD_PRIORITY** – Solar → Load → Battery → Grid  
-- **CHARGE_PRIORITY** – Solar → Battery → Load → Grid  
-- **PRODUCE_PRIORITY** – Solar → Grid → Battery → Load  
+* **LOAD_PRIORITY**
+  Solar → Load → Battery → Grid
+
+* **CHARGE_PRIORITY**
+  Solar → Battery → Load → Grid
+
+* **PRODUCE_PRIORITY**
+  Solar → Grid → Battery → Load
+
+Each strategy produces different trade-offs in cost, efficiency, and grid dependence.
 
 ---
 
 ## Metrics Computed
 
-- Total generation and consumption (kWh)  
-- Grid import/export (kWh)  
-- Curtailed energy  
-- Unmet load (total, events, percentage of time)  
-- Battery statistics (SoC, efficiency)  
-- Inverter failures and downtime  
-- Net economic cost  
+The simulation generates detailed performance metrics:
+
+* Total generation and consumption (kWh)
+* Grid import/export (kWh)
+* Self-consumption & self-sufficiency ratios
+* Curtailed energy
+* Unmet load:
+
+  * Total energy
+  * Number of events
+  * Percentage of time
+* Battery performance:
+
+  * State of Charge (SoC)
+  * Charge/discharge behavior
+  * Real efficiency
+* Inverter reliability:
+
+  * Failures
+  * Downtime
+* Net economic cost
 
 ---
 
-## Outputs
+## Outputs Generated
 
-The simulation generates:
+When running the simulation, the system automatically generates:
 
-- Time-series performance plots  
-- Hourly CSV summaries  
-- Global results summary CSV  
+### Raw Outputs
+
+* Detailed time-series CSV
+* Hourly aggregated CSV
+* Household metrics CSV
+* Global results summary
+
+### Dashboard Datasets (JSON + CSV)
+
+Located in:
+
+```
+/output/dashboard_data/
+```
+
+Includes:
+
+* KPIs
+* Duck curve dataset
+* Household type comparison
+* Wealth level comparison
+* Costs & self-consumption
+* Timeseries by household type
 
 ---
 
-## Requirements
+## Interactive Dashboard
 
-Install dependencies:
+An interactive dashboard is included to visualize results.
+
+### Features:
+
+* Strategy and season selection
+* Time aggregation (hourly, daily, weekly)
+* Duck Curve visualization
+* KPI summary cards
+* Household comparison charts
+* Wealth-level analysis
+* Scatter plot (cost vs efficiency)
+* Battery usage analysis
+* Time-series comparison by household type
+* Interactive tooltips and filters
+
+### Storytelling Layer:
+
+The dashboard provides:
+
+* Key insights per scenario
+* Automatic comparisons between strategies
+* Written conclusions based on data
+
+---
+
+## How to Run the Project
+
+### 1. Install dependencies
 
 ```bash
 pip install simpy pandas matplotlib
@@ -57,10 +143,68 @@ pip install simpy pandas matplotlib
 
 ---
 
-## Run
+### 2. Run the simulation
 
 ```bash
+cd Dashboard
 python greengridsim.py
 ```
+
+**IMPORTANT:**
+This step generates all required JSON and CSV files for the dashboard.
+
+---
+
+### 3. Open the dashboard
+
+Open `index.html` using:
+
+* Live Server (recommended), or
+* Any local server
+
+---
+
+## Project Structure
+
+```
+Dashboard/
+├── index.html              # Dashboard UI
+├── main.js                 # Visualization logic (D3.js)
+├── style.css               # Styling
+├── greengridsim.py         # Simulation engine
+├── config.json             # Simulation configuration
+├── output/                 # Generated results (auto-created)
+│   └── dashboard_data/     # JSON datasets for dashboard
+├── Simulator/              # Previous project version
+└── README.md
+```
+
+---
+
+## Important Notes
+
+* The `/output` folder is **generated automatically**
+* It can be safely deleted and regenerated by running the simulation again
+* The dashboard **will not work** if the simulation has not been executed first
+
+---
+
+## Purpose of This Delivery
+
+This second delivery focuses on:
+
+* Data preparation and structuring
+* Visualization and dashboard development
+* Descriptive storytelling
+* Comparative analysis of strategies
+* Bridging simulation results with decision-making insights
+
+---
+
+## Team
+
+* Diego Sebastián Montoya Rodríguez
+* Jesús Abel Gutiérrez Calvillo
+* José Bernardo Sandoval Martínez
 
 ---
