@@ -1,0 +1,2 @@
+season,strategy,num_households,total_generation_kwh,total_consumption_kwh,total_grid_import_kwh,total_grid_export_kwh,total_self_consumed_kwh,total_unmet_load_kwh,total_curtailed_kwh,avg_self_consumption_ratio,avg_self_sufficiency_ratio,avg_net_cost_per_house,total_net_cost
+Summer,LOAD_PRIORITY,50,16555.734523644394,36511.96953798466,21583.606738305578,1352.0980151066867,14928.362799679084,0.0,0.0,0.8899201106465281,0.4313736317348901,299.4163368026633,14970.816840133166

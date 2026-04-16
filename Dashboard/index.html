@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Green Grid Dashboard</title>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="page">
+        <header class="topbar">
+            <div>
+                <div class="main-header">
+                    <h1 class="project-title">SG1_Team7</h1>
+
+                    <div class="team-members">
+                        <p>Diego Sebastián Montoya Rodríguez</p>
+                        <p>Jesús Abel Gutiérrez Calvillo</p>
+                        <p>José Bernardo Sandoval Martínez</p>
+                    </div>
+                </div>
+                <hr class="header-divider">
+                <h1>Green Grid Dashboard</h1>
+                <p class="subtitle">Neighborhood Energy Simulation Dashboard</p>
+            </div>
+
+
+
+            <div class="controls">
+                <div class="control-group">
+                    <label for="strategy-select">Strategy</label>
+                    <select id="strategy-select">
+                        <option value="LOAD_PRIORITY">LOAD_PRIORITY</option>
+                        <option value="CHARGE_PRIORITY">CHARGE_PRIORITY</option>
+                        <option value="PRODUCE_PRIORITY">PRODUCE_PRIORITY</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="season-select">Season</label>
+                    <select id="season-select">
+                        <option value="Spring">Spring</option>
+                        <option value="Summer">Summer</option>
+                        <option value="Fall">Fall</option>
+                        <option value="Winter">Winter</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="timescale-select">Timescale</label>
+                    <select id="timescale-select">
+                        <option value="hourly">Hourly</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+        </header>
+
+        <section class="story-section">
+            <div class="story-card intro-card">
+                <h2>Why this dashboard matters</h2>
+                <p>
+                    This dashboard shows how different energy management strategies affect a neighborhood’s
+                    dependence on the grid, self-consumption, costs, and battery usage. The goal is not only
+                    to visualize data, but to explain which strategy creates the most balanced and resilient
+                    local energy behavior.
+                </p>
+            </div>
+
+            <div class="story-card insights-card">
+                <h2>Key insights</h2>
+                <div id="insights-list" class="insights-list"></div>
+            </div>
+
+            <div class="story-card conclusion-card">
+                <h2>Strategy conclusion</h2>
+                <p id="strategy-conclusion">
+                    Select a strategy and season to see the dashboard conclusion.
+                </p>
+            </div>
+        </section>
+
+        <section class="kpi-section">
+            <div class="kpi-card">
+                <span class="kpi-label">Total Generation</span>
+                <span class="kpi-value" id="kpi-generation">-</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Total Consumption</span>
+                <span class="kpi-value" id="kpi-consumption">-</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Grid Import</span>
+                <span class="kpi-value" id="kpi-import">-</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Grid Export</span>
+                <span class="kpi-value" id="kpi-export">-</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Self-Consumption Ratio</span>
+                <span class="kpi-value" id="kpi-self-consumption">-</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Self-Sufficiency Ratio</span>
+                <span class="kpi-value" id="kpi-self-sufficiency">-</span>
+            </div>
+        </section>
+
+        <section class="charts-grid">
+            
+            <div class="chart-card wide">
+                <div class="chart-header">
+                    <h2>Duck Curve</h2>
+                    <p>
+                        This chart compares neighborhood demand, solar generation, and net load over time.
+                        It helps show when solar production reduces grid dependence and when demand rises above
+                        local generation, creating energy deficits that must be covered by batteries or the grid.
+                    </p>
+                </div>
+
+                <div class="duck-summary-box">
+                    <div class="duck-summary-title">Duck Curve Summary</div>
+                    <div id="duck-summary-text" class="duck-summary-text">
+                        Select a strategy and season to see the summary.
+                    </div>
+                    <div id="duck-insight-text" class="duck-insight-text">
+                        Key moments of the curve will appear here.
+                    </div>
+                </div>
+
+                <div class="duck-controls">
+                    <button id="duck-play-btn">Play</button>
+                    <button id="duck-reset-btn">Reset</button>
+
+                    <div class="duck-slider-group">
+                        <label for="duck-slider">Progress</label>
+                        <input type="range" id="duck-slider" min="1" max="1" value="1" />
+                        <span id="duck-slider-label">Hour 1</span>
+                    </div>
+                </div>
+
+                <div id="duck-curve-chart" class="chart"></div>
+
+                <div class="local-filters">
+                    <div class="control-group">
+                        <label for="household-filter">Household Type</label>
+                        <select id="household-filter">
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="wealth-filter">Wealth Level</label>
+                        <select id="wealth-filter">
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="sort-select">Sort By</label>
+                        <select id="sort-select">
+                            <option value="self_consumed_kwh">Self-Consumed</option>
+                            <option value="generation_kwh">Generation</option>
+                            <option value="consumption_kwh">Consumption</option>
+                            <option value="net_cost">Net Cost</option>
+                            <option value="battery_discharge_kwh">Battery Discharge</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="sort-order-select">Sort Order</label>
+                        <select id="sort-order-select">
+                            <option value="desc">Descending</option>
+                            <option value="asc">Ascending</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2>By Household Type</h2>
+                    <p> This chart compares household groups using the selected metric, such as self-consumed energy,
+                        generation, consumption, cost, or battery discharge. It is useful for identifying which
+                        household profile performs better under the current strategy and season, and for comparing
+                        how different residential patterns behave in the neighborhood.</p>
+                </div>
+                <div id="household-type-chart" class="chart"></div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2>Production vs Consumption by Wealth</h2>
+                    <p> Average generation and consumption by wealth level. This chart compares average generation and average consumption across wealth levels.
+                         It helps show whether certain wealth groups consume more energy than they produce,
+                        which groups are closer to energy balance, and how socioeconomic differences affect
+                        local energy behavior.</p>
+                </div>
+                <div id="wealth-level-chart" class="chart"></div>
+            </div>
+
+            <div class="chart-card wide">
+                <div class="chart-header">
+                    <h2>Household Scatter</h2>
+                    <p> This chart compares each household’s self-consumption ratio against its net cost.
+                        It helps identify which households are operating efficiently, which ones still depend
+                        heavily on the grid, and which groups combine higher local energy usage with lower cost.
+                        Bubble size represents total household consumption.</p>
+                </div>
+                <div id="costs-scatter-chart" class="chart"></div>
+            </div>
+
+            <div class="chart-card wide">
+                <div class="chart-header">
+                    <h2>Timeseries by Household Type</h2>
+                    <p>
+                        This chart shows how electricity consumption changes over time for each household type.
+                        It helps compare behavioral patterns between groups, identify which type tends to consume
+                        more energy, and detect when demand peaks happen across the selected time scale.
+                        Each color represents a different household type.
+                    </p>
+                </div>
+
+                <div id="timeseries-household-type-chart" class="chart"></div>
+
+                <div class="chart-summary-box">
+                    <div class="chart-summary-title">Timeseries Summary</div>
+                    <div id="timeseries-summary-text" class="chart-summary-text">
+                        Key insights about household-type consumption will appear here.
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2>Battery Utilization</h2>
+                    <p> Average battery discharge by household type. This chart compares average battery discharge across household types.
+                        It helps show which groups rely more on stored energy, how strongly batteries contribute
+                        to covering demand, and which household profiles make greater use of storage under the
+                        selected operating strategy.</p>
+                </div>
+                <div id="battery-utilization-chart" class="chart"></div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2>Energy Surplus vs Deficit</h2>
+                    <p> Net load aggregated by selected timescale. This chart shows net load over the selected time scale, highlighting periods of surplus
+                         and deficit. It is useful for understanding when local generation is enough to cover demand
+                        and when the neighborhood still requires support from storage or the grid.</p>
+                </div>
+                <div id="surplus-deficit-chart" class="chart"></div>
+            </div>
+        </section>
+
+        <section class="data-note">
+            <p>
+                Data source: files generated by <code>greengridsim.py</code> in
+                <code>output/dashboard_data/</code>.
+            </p>
+        </section>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

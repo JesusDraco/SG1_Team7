@@ -1,0 +1,18 @@
+[
+  {
+    "season":"Winter",
+    "strategy":"PRODUCE_PRIORITY",
+    "num_households":50,
+    "total_generation_kwh":30829.8483487928,
+    "total_consumption_kwh":36370.3628829485,
+    "total_grid_import_kwh":36080.0657937451,
+    "total_grid_export_kwh":30829.8483487928,
+    "total_self_consumed_kwh":290.2970892035,
+    "total_unmet_load_kwh":0.0,
+    "total_curtailed_kwh":0.0,
+    "avg_self_consumption_ratio":0.0093717736,
+    "avg_self_sufficiency_ratio":0.0084999627,
+    "avg_net_cost_per_house":-13.7362833721,
+    "total_net_cost":-686.8141686047
+  }
+]
