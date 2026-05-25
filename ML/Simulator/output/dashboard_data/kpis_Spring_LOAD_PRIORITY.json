@@ -1,0 +1,18 @@
+[
+  {
+    "season":"Spring",
+    "strategy":"LOAD_PRIORITY",
+    "num_households":50,
+    "total_generation_kwh":35488.2048851757,
+    "total_consumption_kwh":36449.7478600679,
+    "total_grid_import_kwh":4353.5520058895,
+    "total_grid_export_kwh":2083.0458061776,
+    "total_self_consumed_kwh":32096.1958541784,
+    "total_unmet_load_kwh":0.0,
+    "total_curtailed_kwh":0.0,
+    "avg_self_consumption_ratio":0.8871583221,
+    "avg_self_sufficiency_ratio":0.9095077849,
+    "avg_net_cost_per_house":27.8084555771,
+    "total_net_cost":1390.4227788573
+  }
+]

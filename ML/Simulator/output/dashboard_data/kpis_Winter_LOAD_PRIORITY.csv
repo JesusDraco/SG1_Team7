@@ -1,0 +1,2 @@
+season,strategy,num_households,total_generation_kwh,total_consumption_kwh,total_grid_import_kwh,total_grid_export_kwh,total_self_consumed_kwh,total_unmet_load_kwh,total_curtailed_kwh,avg_self_consumption_ratio,avg_self_sufficiency_ratio,avg_net_cost_per_house,total_net_cost
+Winter,LOAD_PRIORITY,50,35317.36654085539,36463.09362722265,4540.459722496177,2085.674845969354,31922.633904726477,0.0,0.0,0.8873256055504339,0.9096156955843621,30.564748609994282,1528.237430499714

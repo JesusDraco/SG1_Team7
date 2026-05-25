@@ -1,0 +1,68 @@
+{
+  "simulation": {
+    "time_step_min": 60,
+    "sim_days": 30,
+    "season": "Spring",
+    "strategy": "LOAD_PRIORITY",
+    "random_seed": 42
+  },
+  "grid": {
+    "import_cost": 0.75,
+    "export_revenue": 0.9,
+    "grid_export_limit_kw": 20,
+    "grid_import_limit_kw": 20,
+    "zero_export": false
+  },
+  "battery": {
+    "capacity_kwh": 13.5,
+    "efficiency": 0.9,
+    "enforce_soc_floor": false,
+    "soc_floor_frac": 0.05
+  },
+  "solar": {
+    "solar_peak_kw": 5,
+    "inverter_max_output_kw": 4,
+    "inverter_mttf_days": 200,
+    "inverter_downtime_min_h": 4,
+    "inverter_downtime_max_h": 72
+  },
+  "neighborhood": {
+    "num_households": 50
+  },
+  "wealth_levels": {
+    "low": 0.8,
+    "middle": 1.0,
+    "high": 1.2,
+    "luxury": 1.5
+  },
+  "household_types": [
+    {
+      "type": "apartment",
+      "base_load_kw": 0.35,
+      "solar_peak_kw": 3.0,
+      "battery_capacity_kwh": 8.0,
+      "wealth_level": "low"
+    },
+    {
+      "type": "small_family",
+      "base_load_kw": 0.50,
+      "solar_peak_kw": 4.5,
+      "battery_capacity_kwh": 10.0,
+      "wealth_level": "middle"
+    },
+    {
+      "type": "family_house",
+      "base_load_kw": 0.70,
+      "solar_peak_kw": 5.5,
+      "battery_capacity_kwh": 13.5,
+      "wealth_level": "high"
+    },
+    {
+      "type": "luxury_house",
+      "base_load_kw": 1.00,
+      "solar_peak_kw": 7.0,
+      "battery_capacity_kwh": 18.0,
+      "wealth_level": "luxury"
+    }
+  ]
+}
