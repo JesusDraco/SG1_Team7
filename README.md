@@ -154,7 +154,7 @@ python -m http.server 8000
 
 ---
 
-## ⚡ Energy Strategies
+## Energy Strategies
 
 The simulator compares three strategies:
 
